@@ -21,6 +21,7 @@ public class TorpedoStore {
   public TorpedoStore(int numberOfTorpedos){
     this.torpedoCount = numberOfTorpedos;
     
+    // more secured random generator suggested by SonarInt
     try {
       generator = SecureRandom.getInstanceStrong();
     } catch (NoSuchAlgorithmException e) {
