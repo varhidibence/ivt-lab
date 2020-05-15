@@ -9,26 +9,33 @@ import static org.mockito.Mockito.*;
 public class GT4500Test {
 
   private GT4500 ship;
+  private TorpedoStore primMock;
+  private TorpedoStore secMock;
 
   @BeforeEach
   public void init(){
-    this.ship = new GT4500();
+    this.primMock = mock(TorpedoStore.class);
+    this.secMock = mock(TorpedoStore.class);
+    this.ship = new GT4500(primMock, secMock);
   }
 
   @Test
   public void fireTorpedo_Single_Success(){
     // Arrange
+    when(primMock.fire(1)).thenReturn(true);
 
     // Act
-    boolean result = ship.fireTorpedo(FiringMode.SINGLE);
+    ship.fireTorpedo(FiringMode.SINGLE);
 
     // Assert
-    assertEquals(true, result);
+    verify(primMock).fire(1);
   }
 
   @Test
   public void fireTorpedo_All_Success(){
     // Arrange
+    when(primMock.fire(1)).thenReturn(true);
+    when(secMock.fire(1)).thenReturn(true);
 
     // Act
     boolean result = ship.fireTorpedo(FiringMode.ALL);
